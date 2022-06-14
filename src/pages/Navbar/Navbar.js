@@ -1,7 +1,26 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
+import auth from "./../../firebase.init";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { signOut } from "firebase/auth";
 
 const Navbar = ({ children }) => {
+  const [getUser] = useAuthState(auth);
+  const menuItems = (
+    <>
+      <li>
+        <Link to="/">Dashboard</Link>
+      </li>
+      <li>
+        <Link to="/employee">Employee</Link>
+      </li>
+      {getUser && (
+        <li onClick={() => signOut(auth)}>
+          <span>Logout</span>
+        </li>
+      )}
+    </>
+  );
   return (
     <div class="drawer drawer-mobile ">
       <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
@@ -27,30 +46,20 @@ const Navbar = ({ children }) => {
               </svg>
             </label>
           </div>
-          <div class="flex-1 px-2 mx-2">Navbar Title</div>
+          <div class="flex-1 px-2 mx-2">Admin Portal</div>
           <div class="flex-none hidden md:block ">
             <ul class="menu menu-horizontal">
               {/* <!-- Navbar menu content here --> */}
-              <li>
-                <Link to="/">Dashboard</Link>
-              </li>
-              <li>
-                <Link to="/">Employee</Link>
-              </li>
+              {menuItems}
             </ul>
           </div>
         </div>
       </div>
       <div class="drawer-side ">
         <label htmlFor="my-drawer-2" class="drawer-overlay"></label>
-        <ul class="bg-[#E8BD0D] menu p-4 overflow-y-auto w-60 text-base-content">
+        <ul class="bg-neutral text-primary menu p-4 overflow-y-auto w-60 justify-center">
           {/* <!-- Sidebar content here --> */}
-          <li>
-            <Link to="/">Dashboard</Link>
-          </li>
-          <li>
-            <Link to="/employee">Employee</Link>
-          </li>
+          {menuItems}
         </ul>
       </div>
     </div>
