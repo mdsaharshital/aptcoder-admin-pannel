@@ -44,9 +44,9 @@ const Navbar = ({ children }) => {
     </>
   );
   return (
-    <div class="drawer drawer-mobile ">
+    <div class="drawer drawer-mobile text-primary">
       <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
-      <div class="drawer-content flex flex-col items-center justify-center bg-accent">
+      <div class="drawer-content flex flex-col  bg-accent">
         {/* <!-- Page content here --> */}
         {children}
         <Outlet />
@@ -70,7 +70,7 @@ const Navbar = ({ children }) => {
           </div>
           <div class="flex-1 px-2 mx-2">Admin Portal</div>
           <div class="flex-none hidden md:block ">
-            <ul class="menu menu-horizontal">
+            <ul class="menu menu-horizontal ">
               {/* <!-- Navbar menu content here --> */}
               {menuItems}
             </ul>
@@ -79,7 +79,7 @@ const Navbar = ({ children }) => {
       </div>
       <div class="drawer-side">
         <label htmlFor="my-drawer-2" class="drawer-overlay"></label>
-        <ul class="text-primary menu p-4 overflow-y-auto w-60 justify-center">
+        <ul class="text-primary menu p-4 overflow-y-auto w-60 justify-center bg-success">
           {/* <!-- Sidebar content here --> */}
           {menuItems}
         </ul>

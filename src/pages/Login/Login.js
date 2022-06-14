@@ -8,6 +8,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loading from "./../../components/Loading/Loading";
 import auth from "./../../firebase.init";
+import Sectiontille from "./../../components/Loading/Sectiontille";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -51,8 +52,8 @@ const Login = () => {
   }
   return (
     <div>
-      <h1>Admin Login Here</h1>
-      <div className="full-form py-4 w-[95vw] md:w-[70vw] mx-auto">
+      <Sectiontille>Admin Login</Sectiontille>
+      <div className="full-form bg-info py-4 w-[95vw] md:w-[70vw] mx-auto">
         <form onSubmit={handleSignUp}>
           <div className="grid xl:grid-cols-1 xl:gap-6"></div>
           <div className="relative z-0 w-full mb-6 group">
