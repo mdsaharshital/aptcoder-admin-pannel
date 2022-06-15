@@ -33,10 +33,12 @@ const Login = () => {
     e.target.reset();
   };
   const handlePassReset = async () => {
+    console.log(email);
     if (email) {
       await sendPasswordResetEmail(email);
       toast.success("Reset password email has been sent");
     } else {
+      console.log(email);
       toast.error("Type your email first");
     }
   };
@@ -51,7 +53,7 @@ const Login = () => {
     return <Loading />;
   }
   return (
-    <div>
+    <div className="pt-20 mb-10 p-5 md:px-10">
       <Sectiontille>Admin Login</Sectiontille>
       <div className="full-form bg-info py-4 w-[95vw] md:w-[70vw] mx-auto">
         <form onSubmit={handleSignUp}>
@@ -88,24 +90,21 @@ const Login = () => {
               Password
             </label>
           </div>
-          <button
-            type="submit"
-            className="btn hero-btn mb-3 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >
+          <button type="submit" className="btn btn-accent mb-3 ">
             Sign Up
           </button>
 
           {error && (
             <p>
-              <small className="text-error">{error.message}</small>
+              <small className="text-red-500">{error.message}</small>
             </p>
           )}
           <p>
-            <small>
+            <small className="text-slate-700">
               Forgot password?{" "}
               <span
                 onClick={handlePassReset}
-                className="text-red-500 cursor-pointer"
+                className="text-primary cursor-pointer"
               >
                 {" "}
                 Click here

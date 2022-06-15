@@ -5,6 +5,7 @@ import RequireAuth from "./pages/RequireAuth/RequireAuth";
 import Login from "./pages/Login/Login";
 import Navbar from "./pages/Navbar/Navbar";
 import Employe from "./pages/Dashboard/Employe";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/signin" element={<Login />}></Route>
         </Routes>
       </Navbar>
+      <ToastContainer />
     </div>
   );
 }

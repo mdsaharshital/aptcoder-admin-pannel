@@ -16,7 +16,7 @@ const Navbar = ({ children }) => {
       </li>
       {getUser && (
         <li onClick={() => signOut(auth)}>
-          <span>Logout</span>
+          <span className="text-warning">Logout</span>
         </li>
       )}
       <label class="swap swap-rotate">

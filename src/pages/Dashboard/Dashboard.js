@@ -1,5 +1,8 @@
 import React from "react";
+import Chart1 from "../../components/Charts/Chart1";
 import Sectiontille from "./../../components/Loading/Sectiontille";
+import Chart2 from "./../../components/Charts/Chart2";
+import Chart3 from "./../../components/Charts/Chart3";
 
 const Dashboard = () => {
   return (
@@ -107,7 +110,15 @@ const Dashboard = () => {
             <div class="stat-desc">↘︎ 90 (14%)</div>
           </div>
         </div>
-        <div className=""></div>
+        <div className="h-60">
+          <Chart1 />
+        </div>
+        <div className="h-60">
+          <Chart2 />
+        </div>
+        <div className="h-60">
+          <Chart3 />
+        </div>
       </div>
     </div>
   );
