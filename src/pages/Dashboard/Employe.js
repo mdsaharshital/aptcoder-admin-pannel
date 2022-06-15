@@ -82,6 +82,31 @@ const Employe = () => {
         </div>
       </form>
       <h1 className="my-5">Total Employee {allEmploye?.length}</h1>
+      <div class="overflow-x-auto">
+        <table class="table w-full">
+          {/* <!-- head --> */}
+          <thead>
+            <tr>
+              <th></th>
+              <th>Name</th>
+              <th>Salary</th>
+              <th>Gender</th>
+              <th>Department</th>
+            </tr>
+          </thead>
+          <tbody>
+            {allEmploye?.map((e) => (
+              <tr key={e.id}>
+                <th>1</th>
+                <td>{e?.name}</td>
+                <td>{e?.salary}</td>
+                <td>{e?.gender}</td>
+                <td>{e?.department}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
