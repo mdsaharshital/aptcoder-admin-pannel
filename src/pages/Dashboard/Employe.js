@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Sectiontille from "./../../components/Loading/Sectiontille";
 import { toast } from "react-toastify";
+import { GiCancel } from "react-icons/gi";
+import { FiFilter } from "react-icons/fi";
 
 const Employe = () => {
   const [allEmploye, setAllEmploye] = useState();
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const apiUrl = "http://localhost:5000";
   const getAllEmploye = () => {
     axios.get(`${apiUrl}/all`).then((response) => {
@@ -97,7 +100,47 @@ const Employe = () => {
         </div>
       </form>
       <div class="divider"></div>
-      <h1 className="my-5">Total Employee {allEmploye?.length}</h1>
+
+      <div className="md:flex items-center mb-8">
+        <h1 className="my-5 flex-1">Total Employee {allEmploye?.length}</h1>
+        {isFilterOpen ? (
+          <div className="md:flex items-center gap-2 flex-2">
+            <select
+              name="gender"
+              required
+              class="select select-bordered w-full max-w-xs flex-1"
+            >
+              <option selected>Name</option>
+              <option>Salary</option>
+              <option>Gender</option>
+              <option>Department</option>
+            </select>
+            <span className="flex items-center">
+              <input
+                name="search"
+                type="text"
+                placeholder="Search"
+                class="input input-bordered w-full max-w-xs flex-1 mr-2"
+                required
+              />
+              <h1
+                className="text-xl cursor-pointer"
+                onClick={() => setIsFilterOpen(!isFilterOpen)}
+              >
+                <GiCancel />
+              </h1>
+            </span>
+          </div>
+        ) : (
+          <button
+            onClick={() => setIsFilterOpen(!isFilterOpen)}
+            className="btn btn-xs btn-outline w-20"
+          >
+            Filter <FiFilter />
+          </button>
+        )}
+      </div>
+
       <div class="overflow-x-auto">
         <table class="table w-full">
           {/* <!-- head --> */}
