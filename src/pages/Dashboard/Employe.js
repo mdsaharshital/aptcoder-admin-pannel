@@ -1,29 +1,44 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Sectiontille from "./../../components/Loading/Sectiontille";
+import { toast } from "react-toastify";
 
 const Employe = () => {
   const [allEmploye, setAllEmploye] = useState();
   const apiUrl = "http://localhost:5000";
-
+  const getAllEmploye = () => {
+    axios.get(`${apiUrl}/all`).then((response) => {
+      console.log("all", response);
+      setAllEmploye(response.data);
+    });
+  };
   useEffect(() => {
-    const getAllEmploye = () => {
-      axios.get(`${apiUrl}/all`).then((response) => {
-        console.log("all", response);
-        setAllEmploye(response.data);
-      });
-    };
     getAllEmploye();
   }, []);
   // ==========
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (
+      e.target.gender.value === "Gender" ||
+      e.target.department.value === "Department"
+    ) {
+      return toast.error("Please provide all data");
+    }
     const employeeData = {
       name: e.target.name.value,
       salary: parseInt(e.target.salary.value),
       gender: e.target.gender.value,
       department: e.target.department.value,
     };
+
+    axios.post(`${apiUrl}/create`, employeeData).then((response) => {
+      console.log("all", response);
+      if (response.status === 200) {
+        getAllEmploye();
+        toast.success(response.data);
+      }
+    });
+    e.target.reset();
     console.log(employeeData);
   };
   return (
@@ -81,6 +96,7 @@ const Employe = () => {
           />
         </div>
       </form>
+      <div class="divider"></div>
       <h1 className="my-5">Total Employee {allEmploye?.length}</h1>
       <div class="overflow-x-auto">
         <table class="table w-full">
@@ -95,9 +111,9 @@ const Employe = () => {
             </tr>
           </thead>
           <tbody>
-            {allEmploye?.map((e) => (
+            {allEmploye?.map((e, index) => (
               <tr key={e.id}>
-                <th>1</th>
+                <th>{index + 1}</th>
                 <td>{e?.name}</td>
                 <td>{e?.salary}</td>
                 <td>{e?.gender}</td>
