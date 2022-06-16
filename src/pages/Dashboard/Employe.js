@@ -8,16 +8,26 @@ import { FiFilter } from "react-icons/fi";
 const Employe = () => {
   const [allEmploye, setAllEmploye] = useState();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [select, setSelect] = useState("name");
+  const [search, setSearch] = useState("");
   const apiUrl = "http://localhost:5000";
+
   const getAllEmploye = () => {
-    axios.get(`${apiUrl}/all`).then((response) => {
-      console.log("all", response);
-      setAllEmploye(response.data);
-    });
+    axios
+      .get(
+        `${apiUrl}/all?open=${isFilterOpen}&search=${search}&select=${select}`,
+        {
+          joss: "helo",
+        }
+      )
+      .then((response) => {
+        console.log("all", response);
+        setAllEmploye(response.data);
+      });
   };
   useEffect(() => {
     getAllEmploye();
-  }, []);
+  }, [isFilterOpen, search, select]);
   // ==========
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -104,8 +114,12 @@ const Employe = () => {
       <div className="md:flex items-center mb-8">
         <h1 className="my-5 flex-1">Total Employee {allEmploye?.length}</h1>
         {isFilterOpen ? (
-          <div className="md:flex items-center gap-2 flex-2">
+          <form className="md:flex items-center gap-2 flex-2">
             <select
+              onChange={(e) => {
+                setSelect(e.target.value);
+                console.log(select);
+              }}
               name="gender"
               required
               class="select select-bordered w-full max-w-xs flex-1"
@@ -121,16 +135,24 @@ const Employe = () => {
                 type="text"
                 placeholder="Search"
                 class="input input-bordered w-full max-w-xs flex-1 mr-2"
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  console.log(search);
+                }}
                 required
               />
               <h1
                 className="text-xl cursor-pointer"
-                onClick={() => setIsFilterOpen(!isFilterOpen)}
+                onClick={() => {
+                  setIsFilterOpen(!isFilterOpen);
+                  setSearch("");
+                  setSelect("name");
+                }}
               >
                 <GiCancel />
               </h1>
             </span>
-          </div>
+          </form>
         ) : (
           <button
             onClick={() => setIsFilterOpen(!isFilterOpen)}
